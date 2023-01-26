@@ -1,11 +1,11 @@
-FROM python:3.9
+FROM python:3.10
 
-WORKDIR /build
+WORKDIR /api
 
-COPY ./requirements.txt /build/requirements.txt
+COPY ./requirements.txt /api/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /build/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /api/requirements.txt
 
-COPY ./src /build/src
+COPY ./src /api/src
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
