@@ -1,0 +1,6 @@
+fastapi
+pydantic
+pyTelegramBotAPI
+SQLAlchemy
+uvicorn
+psycopg2-binary
