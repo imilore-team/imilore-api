@@ -45,6 +45,7 @@ class Database:
     def __add(self, object, session=None):
         session.add(object)
         session.commit()
+        return object.id
 
     @__with_session
     def __delete(self, object, session=None):
@@ -68,18 +69,34 @@ class Database:
             object = session.merge(object)
             for key in childs.keys():
                 if hasattr(object, key):
-                    getattr(object, key).append(childs[key])
+                    dest = getattr(object, key)
+                    if type(childs[key]) == list:
+                        dest.extend(childs[key])
+                    else:
+                        dest.append(childs[key])
             session.commit()
+
+            # calling ids to have them in original objects, sqlalchemy is strange
+            for key in childs.keys():
+                if hasattr(object, key):
+                    if type(childs[key]) == list:
+                        for child in childs[key]:
+                            child.id
+                    else:
+                        childs[key].id
 
 
     def get(self, value, object, by):
         return self.__get(object).filter(by == value).first()
 
+    def get_all_filtered(self, value, object, by):
+        return self.__get(object).filter(by == value).all()
+
     def get_all(self, object):
         return self.__get(object).all()
     
     def add(self, object):
-        self.__add(object)
+        return self.__add(object)
 
     def delete(self, object):
         self.__delete(object)

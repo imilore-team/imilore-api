@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.init import engine, DeclarativeBase
 
 from src.routes.feedback import router as feedback_router
+from src.routes.ml_data import router as ml_data_router
 
 
 DeclarativeBase.metadata.create_all(bind=engine)
@@ -21,3 +22,4 @@ app.add_middleware(
 )
 
 app.include_router(feedback_router)
+app.include_router(ml_data_router)

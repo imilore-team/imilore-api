@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-from src.init import db
 from src.models.feedback import InFeedbackModel
 from src.providers.feedback import FeedbackProvider
 
