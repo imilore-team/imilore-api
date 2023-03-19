@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir --upgrade -r /api/requirements.txt
 
 COPY ./src /api/src
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "src.main:app"]
